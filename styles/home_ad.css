@@ -1,24 +1,22 @@
 @charset "utf-8";
 /* CSS Document */
 html {height:100%;}
-body {
-	height: 100%;
-	position: inherit;
-}
+body {height:100%;
+	position:inherit;}
 	
 	
 	a{
 		text-decoration:none;
 	}
 #main{
-	height: 100%;
+	height:100%;
 }
 #deli{
 	overflow:scroll;
 	position:inherit;
 	height: 100%;
 	width: 120px;
-	background-color: #7B9DEE;
+	background-color: #06C;
 	opacity: 0.5;
 	transition-property: width;
 	transition-duration: 1s;
@@ -68,7 +66,7 @@ body {
 	position: inherit;
 	height: 100%;
 	width: 120px;
-	background-color: #FCBAF2;
+	background-color: #333;
 	opacity: 0.5;
 	transition-property: width;
 	transition-duration: 1s;
@@ -130,7 +128,7 @@ body {
 
 
 #recent{
-	background-color: #FC9;
+	background-color: #646664;
 	width: 135px;
 }
 
@@ -145,8 +143,7 @@ body {
 	padding-left: 15px;
 }
 #recent,#deli,#posts{
-	height: 100%;
-	background-color: #096;
+	height:100%;
 }
 #posts h1{
 	text-transform: uppercase;
