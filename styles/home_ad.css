@@ -4,7 +4,6 @@ html {height:100%;}
 body {
 	height: 100%;
 	position: inherit;
-	background-color: #0C9;
 }
 	
 	
@@ -13,14 +12,13 @@ body {
 	}
 #main{
 	height: 100%;
-	background-color: #C30;
 }
 #deli{
 	overflow:scroll;
 	position:inherit;
 	height: 100%;
 	width: 120px;
-	background-color: #06C;
+	background-color: #6CF;
 	opacity: 0.5;
 	transition-property: width;
 	transition-duration: 1s;
@@ -132,7 +130,7 @@ body {
 
 
 #recent{
-	background-color: #646664;
+	background-color: #FC9;
 	width: 135px;
 }
 
