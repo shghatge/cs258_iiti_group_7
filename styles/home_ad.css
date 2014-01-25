@@ -18,7 +18,7 @@ body {
 	position:inherit;
 	height: 100%;
 	width: 120px;
-	background-color: #6CF;
+	background-color: #7B9DEE;
 	opacity: 0.5;
 	transition-property: width;
 	transition-duration: 1s;
@@ -68,7 +68,7 @@ body {
 	position: inherit;
 	height: 100%;
 	width: 120px;
-	background-color: #333;
+	background-color: #FCBAF2;
 	opacity: 0.5;
 	transition-property: width;
 	transition-duration: 1s;
