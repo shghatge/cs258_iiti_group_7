@@ -1,0 +1,118 @@
+@charset "utf-8";
+/* CSS Document */
+html {height:100%;}
+body {height:100%;
+	position:inherit;}
+#total{
+	width:100%;
+	height:100%;
+}
+
+#total vlinks{
+	color:#696;
+}
+p.heading1{font-family: "Algerian", sans-serif;font-size:3em;color:#15374f;} 
+		p.heading2{font-family:"Times New Roman";font-size:1.5em; color:#15374f;position:absolute;top:100px;left:600px;} 	
+
+
+#sidelinks{
+	height:10%;
+	width:100%;
+	padding-left:5px;
+	padding-top:10px;
+	border-color:#CCC;
+	border-style:groove;
+	border-width:10px;
+	text-align:center;
+	padding-top:30px;
+	color:#FFF;
+	opacity: 10;
+	font-size:24px;
+	transition-property: all;
+	transition-duration: 1s;
+	transition-timing-function: ease-out;
+	transition-delay: 0s;
+	background-color :#06213F;
+}
+
+
+
+#sidelinks:hover{
+	
+	background-color:#FFF;
+	color:#333;
+}
+
+#all{
+	overflow:scroll;
+	width:60%;
+	color: #fff;
+	margin-left:70px;
+	padding-left:20px;
+	padding-top:20px;
+	background-color: #000;
+	
+}
+
+#adverts{
+	padding-left:10px;
+	padding-top:5px;
+	overflow: scroll;
+	width: 100%;
+	height: 50%;
+	border-color: #030;
+	border-style: outset;
+	color: #fff;
+	font-size: 24px;
+	
+	animation:cubic-bezier(x1,y1,x2,y2);
+	background-color: #004080;
+	transition-property: all;
+	transition-duration: 1s;
+	transition-timing-function: ease-out;
+	transition-delay: 0s;
+		text-transform:capitalize;
+}
+#adverts a{
+	color:#FF6;
+}
+
+#upd{
+	font-size:12px;
+}
+
+#adverts:hover a{
+	color:#06C;
+	
+}
+
+#adverts vlink{
+	color:#99C;
+}
+#adverts:hover{
+	
+	color: #066;
+	background-image:none;
+	background-color: #fff;
+}
+
+
+
+#sidebar, #all{
+	font-size: 12px;
+	float:left;
+	padding-top: 10px;
+	padding-right: 15px;
+	padding-bottom: 10px;
+	padding-left: 15px;
+}
+#sidebar,#all{
+	height:100%;
+}
+
+#adverts h1
+{	padding-left:30%;
+	word-spacing:10px;
+			font-size:36px;
+
+}
