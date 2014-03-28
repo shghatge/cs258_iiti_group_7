@@ -1,4 +1,20 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
+<? require  'core.inc.php';
+	require 'fac_con.inc.php';
+	if (loggedo())
+	{
+		include 'Faculty_login.inc.php';
+	}
+	else
+	{
+		if(isset($SERVER['prev_url'])){
+	if($_SERVER['HTTP_REFERER']=="changeP.php")
+	{
+		echo "changeP.php";
+	}
+		}
+		
+?>
 <html>
 	<head>
 		<title>Account.php</title>
@@ -7,7 +23,7 @@
 	<style>
 	p.two
 	{
-		font-family:"Arial";font-size:1.2em;color:yellow;
+		font-family:"Arial";font-size:2em;color:yellow;
 		position:absolute;
 		left:220px;
 		top:100px;
@@ -179,14 +195,14 @@
 	</style>
 	<body>
 		<div style="background-color:#00d2ff;">
-			<img src="Picture1.png" width = "727px" height = "79px"><p class = "one">welcome user&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="Logout.php">Log Out</a></p>
+			<img src="Picture1.png" width = "727px" height = "79px"><p class = "one">WELCOME&nbsp;&nbsp;<?php echo $_SESSION['firstname'];?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="logout.inc.php">Log Out</a></p>
 			<hr class ="hOne">
 		</div>
 		<a href="Faculty_Account_Submitted_History.php"><button class = "classname1" >History</button></a>
 		<a href="Faculty_Account_Profile.php"><button class = "classname2">Profile</button></a>
 		<a href="Faculty_Account_Change_Password.php"><button class = "classname3">Change Password</button></a>
 		<body background = "Background1.jpg">
-		<p class = 'two'>Here all the Submitted Forms by the user will be displayed.</p>
+		<p class ="two">Account Home Page</a>
 	</body>
 </html>
-		
+ <?php }?>

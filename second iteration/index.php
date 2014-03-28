@@ -5,32 +5,45 @@
 <title>Online Recruitment Portal</title>
 <link href="styles/adverts.css" rel="stylesheet" type="text/css" />
 </head>
+<?php require 'connect.inc.php';
+require '/advertisements/connections/addconn.inc.php';
+$query = "SELECT title , updated , description , dep , details FROM ads ORDER BY updated DESC";
+$result = mysqli_query($link,$query) or die('kmn');
+$rows = mysqli_fetch_assoc($result);
 
+
+
+?>
 
 <body height=100%>
-<body background = "Background1.jpg">
-<div>
-<p class = "heading1" align = "center">ONLINE FACULTY RECUITMENT PORTAL</p>
-		<p class = "heading2" align = "center">IIT INDORE</p>
+<div id="total">
+<div id="headera">
+<div id="headeratext" > IIT INDORE ONLINE FACULTY RECRUITMENT </div>
 </div>
 <div id="sidebar">
+<a href="<?php echo 'adminhome.php'?>">
+<div id="sidelinks">
+ADMIN HOMEPAGE
+</div></a>
+
 <a href="<?php echo 'login.php'?>">
 <div id="sidelinks">
 USER LOGIN
-</div>
-</a>
-<a href="<?php echo 'SignUp.php'?>">
+</div></a>
+
+<a href="<?php echo 'signup1.php'?>">
 <div id="sidelinks">
-SIGN UP
-</div>
-</a>
+REGISTER
+</div></a>
+<a href="http://www.iiti.ac.in">
+<div id="sidelinks">
+IIT INDORE WEBSITE
+</div></a>
+
+<a href="<?php echo 'Faculty_Account.php'?>">
 <div id="sidelinks">
 FACULTY LOGIN
 </div>
-<a href="<?php echo 'adminhome.php'?>">
-<div id="sidelinks">
-ADMIN LOGIN
-</div></a>
 </div>
 <div id="all">
 <?php do{ $goDown = sprintf("download.php?filename=%s",$rows['details']);?>

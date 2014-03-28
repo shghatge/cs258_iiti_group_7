@@ -18,7 +18,7 @@ else
  else
  {
 	 move_uploaded_file($temp,"detail_files/".$name);
-	 header("Location: new_post.php");
+	 header("Location: adminhome.php");
 die();
 	 
 	 

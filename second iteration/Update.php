@@ -5,6 +5,7 @@
 </head>
 <body>
 <?php
+session_start();
 $fn = $_POST["firstname"];
 $mn = $_POST["middlename"];
 $ln = $_POST["lastname"];
@@ -18,16 +19,19 @@ $cn = $_POST["Country"];
 $pz = $_POST["PostalZip"];
 $mb = $_POST["Mobile"];
 $em = $_POST["Email"];
-function generateRandomString($length = 10) {
+$rn = $_POST["txtCaptcha"];
+if($rn==$_SESSION["a"])
+{
+    function generateRandomString($length = 10) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $randomString = '';
     for ($i = 0; $i < $length; $i++) {
         $randomString .= $characters[rand(0, strlen($characters) - 1)];
     }
     return $randomString;
-}
-$ps = generateRandomString();
-date_default_timezone_set('Etc/UTC');
+    }
+    $ps = generateRandomString();
+    date_default_timezone_set('Etc/UTC');
 
 require '/PHPMailer-master/PHPMailerAutoload.php';
 
@@ -53,7 +57,7 @@ $mail->SMTPAuth = true;
 //Username to use for SMTP authentication - use full email address for gmail
 $mail->Username = "nishant.khali@gmail.com";
 //Password to use for SMTP authentication
-$mail->Password = "Indore1234";
+$mail->Password = "Indore5678";
 //Set who the message is to be sent from
 $mail->setFrom('nishant.khali@gmail.com', 'Nishant Kumar');
 //Set an alternative reply-to address
@@ -69,27 +73,36 @@ $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
 //send the message, check for errors
 $user_name = "root";
-$password = "cseproject1";
-$database = "Credentials";
+$password = "";
+$database = "Credential";
 $server = "127.0.0.1";
 $check = false;
-$db_handle = mysql_connect($server, $user_name, $password);
+$db_handle = mysqli_connect($server, $user_name, $password);
 
-$db_found = mysql_select_db($database, $db_handle);
+$db_found = mysqli_select_db($db_handle,$database);
 
-$SQL = "INSERT INTO acc_database (First_Name,Middle_Name,Last_Name,Gender,User_Name,Password,City_Town,Country,PostalZip,Mobile,Email) VALUES ('$fn','$mn','$ln','$gn','$un','$ps','$ct','$cn','$pz','$mb','$em')";
-$result = mysql_query($SQL);
-if(!$result)
-{
-	die("Error:".mysql_error());
-}
-	echo "List updated";
-	
-if (!$mail->send()) {
+    if(!$db_found)
+    {
+    $sql1 = "CREATE DATABASE Credential";
+    $result1 = mysqli_query($db_handle,$sql1);
+    }
+    $SQL = "INSERT INTO Account_details (First_Name,Middle_Name,Last_Name,Gender,Dat,Month,Year,User_Name,Password,City,Country,Zip,Mobile,Email) VALUES ('$fn','$mn','$ln','$gn','$dt','$mt','$yr','$un','$ps','$ct','$cn','$pz','$mb','$em')";
+    $result = mysqli_query($db_handle,$SQL);
+    if(!$result)
+    {
+	echo "username already exits";
+    }
+    else
+    {
+    if (!$mail->send()) {
     echo "Mailer Error: " . $mail->ErrorInfo;
-} else {
+    } else {
     echo "<script>window.open('registeringpage.php', '_self');</script>";
+    }
+    }
 }
+else
+echo "verification problem";	
 ?>
 </body>
 </html>

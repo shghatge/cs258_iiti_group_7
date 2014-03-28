@@ -7,21 +7,23 @@
 <?php
 //INSERT INTO `adsadmin`.`ads` (`id`, `updated`, `title`, `description`, `details`, `dep`) VALUES (NULL, CURRENT_TIMESTAMP, 'First', 'first vacancy', 'cse_1.pdf', 'cse');
 require 'core.inc.php';
-require '/advertisements/Connections/addconn.inc.php';
+include '/advertisements/Connections/addconn.inc.php';
+
 if(loggedo())
 {
 	include 'adminlogin.inc.php';
 }
 else{
-	setcookie('user_id',time()+600);
+	
 	if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
   if (PHP_VERSION < 6) {
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+	
   }
-
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+include '/advertisements/Connections/addconn.inc.php';
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($link, $theValue) : mysqli_escape_string( $link, $theValue);
 
   switch ($theType) {
     case "text":
@@ -101,12 +103,14 @@ $goto = $_SERVER['PHP_SELF'];
 
 <input type="submit" name="submit" value="ADD NEW POST" />
 <input type="hidden" name="ins" value="form4" />
-<p> <a href="up_ind.php" > UPLOAD DETAILS FILE </a></p>
+<p>
 
 </form>
 
 
 </p>
+
+
 </body>
 </html>
 

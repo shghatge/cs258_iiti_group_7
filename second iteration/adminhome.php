@@ -17,4 +17,13 @@ echo '<p><a href="manage_posts.php"> Manage Posts </a>';
 
 }
 ?>
+<br><br>
+<input type="button"onclick="upload()" id="up" value="UPLOAD DETAILS FILE"/>
+<script type="text/javascript">
+function upload()
+{
+window.open('up_ind.php','UPLOAD DETAILS FILE');
+}
+</script>
+
 </html>
