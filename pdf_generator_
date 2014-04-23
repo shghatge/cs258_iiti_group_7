@@ -1,0 +1,873 @@
+//*****Ask nishant about one less r3_t1_c1 type variables
+//Barcode implementation
+//pic formats
+<?php
+require('fpdf.php');
+//--------------------------------------The class extension---------------------------
+class PDF extends FPDF
+{
+// Load data
+function LoadData($file)
+{
+    // Read file lines
+    $lines = file($file);
+    $data = array();
+    foreach($lines as $line)
+        $data[] = explode(';',trim($line));
+    return $data;
+}
+
+// Simple table
+function BasicTable($header, $data)
+{
+    // Header
+    foreach($header as $col)
+        $this->Cell(40,7,$col,1);
+    $this->Ln();
+    // Data
+    foreach($data as $row)
+    {
+        foreach($row as $col)
+            $this->Cell(40,6,$col,1);
+        $this->Ln();
+    }
+}
+
+// Better table
+function ImprovedTable($header, $data)
+{
+    // Column widths
+    $w = array(40, 35, 40, 45);
+    // Header
+    for($i=0;$i<count($header);$i++)
+        $this->Cell($w[$i],7,$header[$i],1,0,'C');
+    $this->Ln();
+    // Data
+    foreach($data as $row)
+    {
+        $this->Cell($w[0],6,$row[0],'LR');
+        $this->Cell($w[1],6,$row[1],'LR');
+        $this->Cell($w[2],6,number_format($row[2]),'LR',0,'R');
+        $this->Cell($w[3],6,number_format($row[3]),'LR',0,'R');
+        $this->Ln();
+    }
+    // Closing line
+    $this->Cell(array_sum($w),0,'','T');
+}
+
+// Colored table
+function FancyTable($header, $data)
+{
+    // Colors, line width and bold font
+    $this->SetFillColor(255,0,0);
+    $this->SetTextColor(255);
+    $this->SetDrawColor(128,0,0);
+    $this->SetLineWidth(.3);
+    $this->SetFont('','B');
+    // Header
+    $w = array(40, 35, 40, 45);
+    for($i=0;$i<count($header);$i++)
+        $this->Cell($w[$i],7,$header[$i],1,0,'C',true);
+    $this->Ln();
+    // Color and font restoration
+    $this->SetFillColor(224,235,255);
+    $this->SetTextColor(0);
+    $this->SetFont('');
+    // Data
+    $fill = false;
+    foreach($data as $row)
+    {
+        $this->Cell($w[0],6,$row[0],'LR',0,'L',$fill);
+        $this->Cell($w[1],6,$row[1],'LR',0,'L',$fill);
+        $this->Cell($w[2],6,number_format($row[2]),'LR',0,'R',$fill);
+        $this->Cell($w[3],6,number_format($row[3]),'LR',0,'R',$fill);
+        $this->Ln();
+        $fill = !$fill;
+    }
+    // Closing line
+    $this->Cell(array_sum($w),0,'','T');
+}
+}
+
+//---------------------------------------Class extension ends-----------------------------------------------------------------------
+
+$date=13;
+$mon='December';
+$year=1996;
+$post='Director';
+$discipline='Computer Science and Engineering';
+$firstname='Shikhar';
+$middlename='kumar';
+$lastname='Bansal';
+$dobdate=13;
+$dobmon=1;
+$dobyear=1996;
+$maritalstatus='Single';
+$nationality='Indian';
+$age=18;
+$gender='male';
+$Photo='pic2.jpg';
+$address='PACL Campus
+Indian Institute of Technology
+Near Veterinary College
+Survey No. 113/2-B,Mhow, MP
+India, PIN: 453441
+';
+$permanentaddress='PACL Campus
+Indian Institute of Technology
+Near Veterinary College
+Survey No. 113/2-B,Mhow, MP
+India, PIN: 453441';
+$phoneres='123456789101112';
+$phoneoffice='123456789101112';
+$fax='123456789101112';
+$email='bshikhar13@yahoo.com';
+$mobile='123456789101112';
+$specs='Former Chief Marshal at FBI persuing B.Tech at IIT INDORE
+Former Chief Marshal at FBI persuing B.Tech at IIT INDORE
+Former Chief Marshal at FBI persuing B.Tech at IIT INDORE';
+$cspecs='Former Chief Marshal at FBI persuing B.Tech at IIT INDORE
+Former Chief Marshal at FBI persuing B.Tech at IIT INDORE
+Former Chief Marshal at FBI persuing B.Tech at IIT INDORE';
+$designation='Director';
+$organization='IIT INDORE PAST IIT DELHI';
+$scaleinrs=100000;
+$payinrs=123456789;
+$emoinrs=1254687;
+$Datej=12;
+$Monthj='january';
+$Yearj='2001';
+$rupees=123456;
+
+$specialization1='physics';
+$specialization2='chemistry';
+$specialization3='maths';
+$specialization4='';
+$specialization5='';
+$specialization6='';
+$specialization7='';
+$CollUniIns1='IIT DELHI';
+$CollUniIns2='IIT Indore';
+$CollUniIns3='IIT Kanpur';
+$YrJoin1=1234;
+$YrJoin2=4567;
+$YrJoin3=7890;
+$YrLeave1=1111;
+$YrLeave2=2222;
+$YrLeave3=3333;
+$per1=15;
+$per2=56;
+$per3=89;
+
+$Rname1='Darshan';
+$Rname2='Radhe';
+$Raddress11='Room4';
+$Raddress21='Tc 71';
+$Raddress31='Silver springs';
+$Raddress12='room 5';
+$Raddress22='phase';
+$Raddress32='AB bypass road';
+$Rdesignation1='Student';
+$Rdesignation2='faculty';
+$Rorgan1='IIT INDORE';
+$Rorgan2='mess';
+$Rtelephone1='123456';
+$Rtelephone2='456789';
+$Remail1='radhe@himself.com';
+$Remail2='darshan_master@f**.com';
+
+
+///-------------------------------------------------///////////////////////-----------------
+$count_specialization;
+if($specialization1){
+
+    $count_specialization=1;
+}
+if($specialization2){
+
+    $count_specialization=2;
+}
+if($specialization3){
+
+    $count_specialization=3;
+}
+if($specialization4){
+
+    $count_specialization=4;
+}
+if($specialization5){
+
+    $count_specialization=5;
+}
+if($specialization6){
+
+    $count_specialization=6;
+}
+if($specialization7){
+
+    $count_specialization=7;
+}
+
+
+$pdf = new FPDF();
+$pdf->AddPage();
+
+$pdf->SetFont('Arial','B',24);
+$pdf->Cell(0,9,'Indian Institute of Technology Indore',0,1,'C');
+
+$pdf->Ln(2.5);
+
+$pdf->SetFont('Arial','B',18);
+$pdf->Cell(0,9,'Application for Academic Appointment',0,1,'C');
+
+$pdf->SetFont('Arial','',11);
+$pdf->Ln();
+$pdf->Ln();
+$pdf->Cell(37,8,'Date of Application :',0,0,'L');
+$pdf->Cell(8,8,$date,0,0,'L');
+$pdf->Cell(20,8,$mon,0,0,'L');
+$pdf->Cell(10,8,$year,0,0,'L');
+$pdf->Ln();
+$pdf->Cell(37,8,'Post Applied For :',0,0,'L');
+$pdf->Cell(50,8,$post,0,0,'L');
+$pdf->Ln();
+$pdf->Cell(37,8,'Discipline :',0,0,'L');
+$pdf->Cell(80,8,$discipline,0,0,'L');
+$pdf->Ln();
+
+
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(37,8,'1.Name',0,0,'L');
+$pdf->Ln();
+$pdf->SetFont('Arial','',11);
+$pdf->Cell(37,8,'First Name :',0,0,'L');
+$pdf->Cell(80,8,$firstname,0,0,'L');
+$pdf->Ln(4);
+$pdf->Cell(37,8,'Middle Name :',0,0,'L');
+$pdf->Cell(80,8,$middlename,0,0,'L');
+$pdf->Ln(4);
+$pdf->Cell(37,8,'Last Name :',0,0,'L');
+$pdf->Cell(80,8,$lastname,0,0,'L');
+$pdf->Ln(4);
+$pdf->Rect(10,73,175,22,'');
+$pdf->Line(10,80,185,80);
+
+$pdf->Ln();
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(37,8,'2.Personal Details',0,0,'L');
+$pdf->SetFont('Arial','',11);
+$pdf->Ln();
+$pdf->Cell(37,8,'(a)Date of Birth :',0,0,'L');
+$pdf->Cell(9,8,$dobdate,0,0,'L');
+$pdf->Cell(9,8,$dobmon,0,0,'L');
+$pdf->Cell(19,8,$dobyear,0,0,'L');
+$pdf->Cell(37,8,'(d)Martial Status :',0,0,'L');
+$pdf->Cell(37,8,$maritalstatus,0,0,'L');
+$pdf->Ln(6);
+$pdf->Cell(37,8,'(b)Age :',0,0,'L');
+$pdf->Cell(37,8,$age,0,0,'L');
+$pdf->Cell(37,8,'(e)Nationality :',0,0,'L');
+$pdf->Cell(37,8,$nationality,0,0,'L');
+
+$pdf->Ln(6);
+$pdf->Cell(37,8,'(c)Gender :',0,0,'L');
+$pdf->Cell(37,8,$gender,0,0,'L');
+$pdf->Rect(10,101,175,27,'');
+$pdf->Line(10,108,185,108);
+$pdf->Ln();
+$pdf->Ln();
+
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(37,8,'3 (a).Contact Address',0,0,'L');
+$pdf->Ln();
+$pdf->SetFont('Arial','',11);
+$pdf->MultiCell(150,4,$address,0,'L');
+$pdf->Ln(2);
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(37,8,'3 (b).Permanent Address',0,0,'L');
+$pdf->Ln();
+$pdf->SetFont('Arial','',11);
+$pdf->MultiCell(150,4,$permanentaddress,0,'L');
+$pdf->Ln();
+
+//-------------------------------------------------------------------------------------------------------
+
+$pdf->Image($Photo,145,32,40,40);
+
+//*******************************/*//*/*/-85623---------------------------------------------------------
+
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(37,8,'4.Contact Details',0,0,'L');
+$pdf->Ln();
+$pdf->SetFont('Arial','',11);
+$pdf->Cell(37,8,'(a)Phone(Office) :',0,0,'L');
+$pdf->Cell(37,8,$phoneoffice,0,0,'L');
+$pdf->Cell(37,8,'(d)Fax :',0,0,'L');
+$pdf->Cell(37,8,$fax,0,0,'L');
+$pdf->Ln(6);
+$pdf->Cell(37,8,'(b)Phone(res) : ',0,0,'L');
+$pdf->Cell(37,8,$phoneres,0,0,'L');
+$pdf->Cell(37,8,'(e)E-mail ID :  ',0,0,'L');
+$pdf->Cell(37,8,$email,0,0,'L');
+
+$pdf->Ln(6);
+$pdf->Cell(37,8,'(c)Mobile :',0,0,'L');
+$pdf->Cell(37,8,$mobile,0,0,'L');
+$pdf->Rect(10,199,175,27,'');
+$pdf->Line(10,206.5,185,206.5);
+$pdf->Ln();
+$pdf->Ln();
+$pdf->AddPage();
+$pdf->SetFont('Arial','BU',12);
+$pdf->Cell(37,8,'5.Academic record starting with school leaving exam:',0,1,'L');
+$pdf->Cell(37,8,'(Please attach photocopies of transcripts/ mark sheets/ grade card and certificates ',0,1,'L');
+$pdf->Cell(37,8,'for all your degrees):',0,1,'L');
+$pdf->SetFont('Arial','',11);
+//*****************************************
+for ($i=1; $i <=$count_specialization ; $i++) { 
+    $sb1="specialization$i";
+    $sb2="CollUniIns$i";
+    $sb3="YrJoin$i";
+    $sb4="YrLeave$i";
+    $sb5="per$i";
+    $pdf->Cell(37,8,$i,0,1,'L');
+    $pdf->Cell(50,8,'Specialization / Discipline : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb1,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'College/University/Institute : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb2,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Year of joining : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb3,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Year of leaving : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb4,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Percentage/ CGPA : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb5,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Ln();
+}
+$pdf->SetFont('Arial','BU',12);
+$pdf->Cell(37,8,'6.Area of Specialization :',0,0,'L');
+$pdf->Ln();
+$pdf->SetFont('Arial','',11);
+$pdf->MultiCell(150,4,$specs,0,'L');
+$pdf->Ln();
+
+$pdf->SetFont('Arial','BU',12);
+$pdf->Cell(37,8,'7.Current Area of Research',0,0,'L');
+$pdf->Ln();
+$pdf->SetFont('Arial','',11);
+$pdf->MultiCell(150,4,$cspecs,0,'L');
+$pdf->Ln();
+
+$pdf->SetFont('Arial','BU',12);
+$pdf->Cell(37,8,'8.Present Employment',0,0,'L');
+$pdf->Ln();
+$pdf->SetFont('Arial','',11);
+$pdf->Cell(37,8,'Designation : ',0,0,'L');
+$pdf->Cell(37,8,$designation,0,0,'L');
+$pdf->Ln();
+$pdf->Cell(37,8,'Organization : ',0,0,'L');
+$pdf->Cell(37,8,$organization,0,0,'L');
+$pdf->Ln();
+$pdf->Cell(37,8,'Date of joining : ',0,0,'L');
+$pdf->Cell(10,8,$Datej,0,0,'L');
+$pdf->Cell(20,8,$Monthj,0,0,'L');
+$pdf->Cell(10,8,$Yearj,0,0,'L');
+$pdf->Ln();
+$pdf->Cell(37,8,'Scale of Pay in Rs. : ',0,0,'L');
+$pdf->Cell(37,8,$scaleinrs,0,0,'L');
+$pdf->Ln();
+$pdf->Cell(37,8,'pay(in rs) : ',0,0,'L');
+$pdf->Cell(37,8,$payinrs,0,0,'L');
+$pdf->Ln();
+$pdf->Cell(70,8,'Total Emoluments (per month) in Rs. : ',0,0,'L');
+$pdf->Cell(37,8,$emoinrs,0,0,'L');
+$pdf->Ln();
+
+$pdf->SetFont('Arial','BU',12);
+$pdf->Cell(130,8,'9.Basic Pay expected at IITI as per advertisement, Rs. : ',0,0,'L');
+$pdf->Ln();
+$pdf->SetFont('Arial','',11);
+$pdf->Cell(37,8,$rupees,0,0,'L');
+$pdf->Ln();
+$pdf->Ln();
+$pdf->SetFont('Arial','BU',12);
+$pdf->Cell(130,8,'10.Information of three Referees: ',0,0,'L');
+//$pdf->Ln();
+$count_referee;
+if($Rname1){
+
+    $count_referee=1;
+}
+if($Rname2){
+
+    $count_referee=2;
+}
+if(isset($Rname3)){
+
+    $count_referee=3;
+}
+$pdf->Ln();
+
+$pdf->SetFont('Arial','',11);
+
+for ($i=1; $i <=$count_referee ; $i++) { 
+    $sb1="Rname$i";
+    $sb2="Rdesignation$i";
+    $sb3="Rorgan$i";
+    $sb4="Raddress1$i";
+    $sb5="Raddress2$i";
+    $sb6="Raddress3$i";
+    $sb7="Rtelephone$i";
+    $sb8="Remail$i";
+    
+    $pdf->Cell(37,8,$i,0,1,'L');
+    $pdf->Cell(50,8,'Name : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb1,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Designation : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb2,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Organization/Institute : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb3,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Address Line 1 : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb4,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Address Line 2 : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb5,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Address Line 3 : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb6,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Telephone : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb7,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'E-mail i.d. : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb8,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Ln();
+}
+$pdf->SetFont('Arial','BU',12);
+$pdf->Cell(60,8,'PROVIDE THE FOLLOWING INFORMATION WITH THE APPLICATION:',0,1,'L'); 
+$pdf->Cell(60,8,'(Indicate "NIL" if required; DO NOT omit/delete the following points. Your application may not be ',0,1,'L');
+$pdf->Cell(60,8,'processed in the absence/incompleteness of the following information)',0,1,'L');        
+$pdf->Ln();
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(60,8,'(a) List of publications: List those PUBLISHED, PREPARATION separately',0,1,'L');        
+$pdf->SetFont('Arial','',11);
+$pdf->Cell(60,8,'(i). Papers in refereed journals (Please also include the journal impact factor)',0,1,'L');
+for ($i=1; $i <=inir1 ; $i++) { 
+    $sb1=p3_t11_r$i_1;
+    $sb2=p3_t11_r$i_2;
+    $sb3=p3_t11_r$i_3;
+    $sb4=p3_t11_r$i_4;
+
+    $pdf->Cell(37,8,$sb1,0,1,'L');
+    $pdf->Cell(50,8,'Topic of Research paper : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb2,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Date of Publish : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb3,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Published/aration : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb4,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Ln();
+}
+
+$pdf->Cell(60,8,'(ii). Papers in conference proceedings',0,1,'L');
+for ($i=1; $i <=inir2 ; $i++) { 
+    $sb1=p3_t12_r$i_1;
+    $sb2=p3_t12_r$i_2;
+    $sb3=p3_t12_r$i_3;
+    $sb4=p3_t12_r$i_4;
+    $sb5=p3_t12_r$i_5;
+
+    $pdf->Cell(37,8,$sb1,0,1,'L');
+    $pdf->Cell(50,8,'Topic of Research paper : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb2,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Conference : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb3,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Date of Research : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb4,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Date of Publish : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb5,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Ln();
+}
+
+$pdf->Cell(60,8,'(iii). Papers presented in conferences but not published',0,1,'L');
+for ($i=1; $i <=inir3 ; $i++) { 
+    $sb1=p3_t13_r$i_1;
+    $sb2=p3_t13_r$i_2;
+    $sb3=p3_t13_r$i_3;
+    $sb4=p3_t13_r$i_4;
+
+    $pdf->Cell(37,8,$sb1,0,1,'L');
+    $pdf->Cell(50,8,'Topic of Research paper : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb2,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Conference : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb3,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Date of Research : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb4,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Ln();
+}
+
+$pdf->Cell(60,8,'(iv). Books/Chapters in books',0,1,'L');
+for ($i=1; $i <=inir4 ; $i++) { 
+    $sb1=p3_t14_r$i_1;
+    $sb2=p3_t14_r$i_2;
+    $sb3=p3_t14_r$i_3;
+    $sb4=p3_t14_r$i_4;
+
+    $pdf->Cell(37,8,$sb1,0,1,'L');
+    $pdf->Cell(50,8,'Name of the Book : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb2,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Author : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb3,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Name of the Chapter : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb4,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Ln();
+}
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(60,8,'(b) Employment history:',0,1,'L');        
+$pdf->SetFont('Arial','',11);
+
+for ($i=1; $i <=inir5 ; $i++) { 
+    $sb1=p3_t1_r$i_1;
+    $sb2=p3_t1_r$i_2;
+    $sb3=p3_t1_r$i_3;
+    $sb4=p3_t1_r$i_4;
+    $sb5=p3_t1_r$i_5;
+
+    $pdf->Cell(37,8,$i,0,1,'L');
+    $pdf->Cell(50,8,'Position : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb1,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Organization/Institution : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb2,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Date of joining : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb3,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Date of leaving : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb4,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Duration : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb5,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Ln();
+}
+
+
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(60,8,'(c) Teaching Experience, Courses/Laboratories:',0,1,'L');        
+$pdf->SetFont('Arial','',11);
+
+for ($i=1; $i <=inir6 ; $i++) { 
+    $sb1=p3_t2_r$i_1;
+    $sb2=p3_t2_r$i_2;
+    $sb3=p3_t2_r$i_3;
+    $sb4=p3_t2_r$i_4;
+   
+    $pdf->Cell(37,8,$i,0,1,'L');
+    $pdf->Cell(50,8,'Title of course taught : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb1,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Postgraduate/Undergraduate : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb2,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Sole instructor or with others : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb3,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Year : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb4,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Ln();
+}
+
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(60,8,'d) Research Experience: (including Post doctoral)',0,1,'L');        
+$pdf->SetFont('Arial','',11);
+
+for ($i=1; $i <=inir7 ; $i++) { 
+    $sb1=p3_t3_r$i_1;
+    $sb2=p3_t3_r$i_2;
+    $sb3=p3_t3_r$i_3;
+    $sb4=p3_t3_r$i_4;
+    $sb5=p3_t3_r$i_2;
+    $sb6=p3_t3_r$i_3;
+    $sb7=p3_t3_r$i_4;
+
+    $pdf->Cell(37,8,$i,0,1,'L');
+    $pdf->Cell(50,8,'Position : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb1,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Institute : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb2,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Superviser : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb3,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Topic : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb4,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Date of joining : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb5,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Date of leaving : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb6,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Duration : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb7,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Ln();
+}
+
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(60,8,'(e) Post Graduate Thesis Supervision:',0,1,'L');        
+$pdf->SetFont('Arial','',11);
+
+for ($i=1; $i <=inir8 ; $i++) {
+
+    $sb1=p4_t1_r$i_1;
+    $sb2=p4_t1_r$i_2;
+    $sb3=p4_t1_r$i_3;
+    $sb4=p4_t1_r$i_4;
+    $sb5=p4_t1_r$i_5;
+
+    $pdf->Cell(37,8,$i,0,1,'L');
+    $pdf->Cell(50,8,'Name of student/research scholar : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb1,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Title of Thesis : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb2,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Doctorate/Master’s  : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb3,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Year of Completion : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb4,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Co-guide (If any) : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb5,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Ln();
+}
+
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(60,8,'(f) Sponsored Projects Undertaken:',0,1,'L');        
+$pdf->SetFont('Arial','',11);
+
+for ($i=1; $i <=inir9 ; $i++) {
+
+    $sb1=p4_t2_r$i_1;
+    $sb2=p4_t2_r$i_2;
+    $sb3=p4_t2_r$i_3;
+    $sb4=p4_t2_r$i_4;
+    $sb5=p4_t2_r$i_5;
+
+    $pdf->Cell(37,8,$i,0,1,'L');
+    $pdf->Cell(50,8,'Sponsoring Agency : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb1,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Title of Project : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb2,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Amount of grant  : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb3,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Period : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb4,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Co-investigator (if any ) : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb5,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Ln();
+}
+
+
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(60,8,'(g) Consultancy Work Done:',0,1,'L');        
+$pdf->SetFont('Arial','',11);
+
+for ($i=1; $i <=inir10 ; $i++) {
+
+    $sb1=p4_t3_r$i_1;
+    $sb2=p4_t3_r$i_2;
+    $sb3=p4_t3_r$i_3;
+    $sb4=p4_t3_r$i_4;
+    $sb5=p4_t3_r$i_5;
+
+    $pdf->Cell(37,8,$i,0,1,'L');
+    $pdf->Cell(50,8,'Organization : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb1,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Title of Project : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb2,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Amount of grant  : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb3,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Period : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb4,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Co-investigator (if any ) : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb5,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Ln();
+}
+
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(60,8,'(h) Industrial Experience Interaction:',0,1,'L');        
+$pdf->SetFont('Arial','',11);
+
+for ($i=1; $i <=inir11 ; $i++) {
+
+    $sb1=p4_t4_r$i_1;
+    $sb2=p4_t4_r$i_2;
+    $sb3=p4_t4_r$i_3;
+    
+    $pdf->Cell(37,8,$i,0,1,'L');
+    $pdf->Cell(50,8,'Organization : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb1,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Nature Of Work : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb2,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Period  : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb3,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Ln();
+}
+
+
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(60,8,'(i) Professional Training Received:',0,1,'L');        
+$pdf->SetFont('Arial','',11);
+
+for ($i=1; $i <=inir12 ; $i++) {
+
+    $sb1=p4_t5_r$i_1;
+    $sb2=p4_t5_r$i_2;
+    $sb3=p4_t5_r$i_3;
+    $sb4=p4_t5_r$i_4;
+    
+    $pdf->Cell(37,8,$i,0,1,'L');
+    $pdf->Cell(50,8,'Name of Training : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb1,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Organization where training was received : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb2,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Year  : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb3,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Duration  : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb4,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Ln();
+}
+
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(60,8,'(j) Membership of Professional Bodies/Organizations:',0,1,'L');        
+$pdf->SetFont('Arial','',11);
+
+for ($i=1; $i <=inir13 ; $i++) {
+
+    $sb1=p4_t6_r$i_1;
+    $sb2=p4_t6_r$i_2;
+    
+    
+    $pdf->Cell(37,8,$i,0,1,'L');
+    $pdf->Cell(50,8,'Name Of The Professional Body : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb1,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Membership Status : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb2,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Ln();
+}
+
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(60,8,'(k) Important Conferences/Seminars Attended:',0,1,'L');        
+$pdf->SetFont('Arial','',11);
+
+for ($i=1; $i <=inir14 ; $i++) {
+
+    $sb1=p4_t7_r$i_1;
+    $sb2=p4_t7_r$i_2;
+    $sb3=p4_t7_r$i_3;
+    
+    $pdf->Cell(37,8,$i,0,1,'L');
+    $pdf->Cell(50,8,'Conference/Seminar : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb1,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Title of paper read (if any) : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb2,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Cell(50,8,'Year  : ',0,0,'L');
+    $pdf->Cell(37,8,$$sb3,0,0,'L');
+    $pdf->Ln(6);
+    $pdf->Ln();
+}
+$pdf->Ln();
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(80,4,'(l) Contributions (teaching) to Continuing Education Programs',0,1,'L');
+$pdf->SetFont('Arial','',11);
+$pdf->MultiCell(150,4,$contctadd1,0,'L');
+
+$pdf->Ln();
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(80,4,'(m) Short-term Course/Workshop/Seminars etc. organized',0,1,'L');
+$pdf->SetFont('Arial','',11);
+$pdf->MultiCell(150,4,$contctadd2,0,'L');
+
+$pdf->Ln();
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(80,4,'(n) Other academic and corporate activities',0,1,'L');
+$pdf->SetFont('Arial','',11);
+$pdf->MultiCell(150,4,$contctadd3,0,'L');
+
+$pdf->Ln();
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(80,4,'(o) Awards and recognitions',0,1,'L');
+$pdf->SetFont('Arial','',11);
+$pdf->MultiCell(150,4,$contctadd4,0,'L');
+
+$pdf->Ln();
+$pdf->SetFont('Arial','B',12);
+$pdf->MultiCell(150,4,'(p) Please list the type of undergraduate courses that you will like to develop and/or teach at IIT Indore (attention is drawn to our UG syllabi posted at http://www.iiti.ac.in/docs/downloads/2012%28July%29_BTech-Course-of-Studies.pdf). You may additionally include the postgraduate courses that you may like to develop at IIT Indore.',0,'L');
+$pdf->SetFont('Arial','',11);
+$pdf->MultiCell(150,4,$contctadd5,0,'L');
+
+$pdf->Ln();
+$pdf->SetFont('Arial','B',12);
+$pdf->MultiCell(150,4,'(r) Please write briefly why you wish to be considered for a faculty position at IITI and how do your long-term career objectives tie in with a position at IITI? Briefly, also write about how you propose to contribute to IITI, and how the Institute can help for your best possible professional growth (300 words).',0,'L');
+$pdf->SetFont('Arial','',11);
+$pdf->MultiCell(150,4,$contctadd6,0,'L');
+
+
+$pdf->Ln();
+$pdf->SetFont('Arial','B',12);
+$pdf->Cell(80,4,'(s) Any other relevant information you may like to furnish.',0,1,'L');
+$pdf->SetFont('Arial','',11);
+$pdf->MultiCell(150,4,$contctadd7,0,'L');
+
+
+
+$pdf->Output();
+?>
